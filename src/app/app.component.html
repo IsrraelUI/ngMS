@@ -1,20 +1,33 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
+<table>
+  <thead>
+    <th (click)="orderBy = 'id'; reverse = !reverse; accountSelected = true; cashSelected = false;" [ngClass]="{'active': accountSelected}">
+      <span class="table-title">
+        Account 
+        <span [ngClass]="{'reverse': reverse}" *ngIf="orderBy == 'id'" class="chevron">V</span>
+      </span>
+    </th>
+    <th  (click)="orderBy = 'cash'; reverse = !reverse; accountSelected = false; cashSelected = true;" [ngClass]="{'active': cashSelected}">
+      <span class="table-title">
+          <span [ngClass]="{'reverse': reverse}" *ngIf="orderBy == 'cash'" class="chevron">V</span>
+          Available Cash
+        </span>
+      <span>Today's Change</span>
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of dataService$.accounts | orderBy: orderBy : reverse ; let i = index" >
+      <td *ngIf="i <= limit">
+        <span class="account-title">
+          {{account.prefix}} - {{account.id}} 
+        </span>
+      </td>
+      <td *ngIf="i <= limit">
+        <p class="cash">${{account.cash | number : '0.00'}}</p>
+        <span class="difference" [ngClass]="{'negative': account.dif < 0, 'positive': account.dif > 0}">
+          <span *ngIf=" account.dif > 0">+</span>{{account.dif}}% / ${{account.val | number : '0.00'}} 
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a class="load-more" *ngIf="limit !== dataService$.accounts.length" (click)="loadMore()">Load more</a>

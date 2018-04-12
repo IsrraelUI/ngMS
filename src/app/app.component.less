@@ -1,0 +1,81 @@
+table{
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 12px;
+    table-layout: fixed;
+    background-color: #FFF;
+    border-collapse: collapse;
+    th{
+        font-weight: normal;
+        text-align: left;
+        background-color: #f7f7f7;
+        border-bottom: 2px solid #cdcdcd;
+        padding:5px 10px;
+        cursor: pointer;
+        &.active{
+            background-color:#CCC;
+        }
+        span{
+            display: block;
+            span{ display: inline-block;}
+            &.table-title{
+                +span {
+                    color: #888;
+                }
+            }
+        }
+        &:last-child{
+            text-align: right;
+        }
+    }
+    td{
+        vertical-align: middle;
+        padding:5px 10px;
+        border-bottom: 1px solid #CCC;
+       + td{
+           text-align: right
+       }
+    }
+}
+
+.account-title{
+    color:#0f8ec7;
+    font-weight: bold;
+    font-size: 18px;
+}
+.chevron{
+    font-size: 10px;
+    color:#0f8ec7;
+    transform-origin: center center;
+    vertical-align: top;
+    &.reverse{
+        transform: rotate(180deg);
+    }
+}
+
+.difference{
+    color:#CCC;
+    font-size: 12px;
+    &.negative{
+        color:red;
+    }
+    &.positive{
+        color:green;
+    }
+}
+
+.cash{
+    font-size:20px;
+    margin:0;
+}
+
+.load-more{
+    display: block;
+    text-align: center;
+    background-color:#FFF;
+    padding: 20px;
+    font-family: sans-serif;
+    cursor: pointer;
+    color:#0f8ec7;
+    border-top: 1px solid silver;
+}
